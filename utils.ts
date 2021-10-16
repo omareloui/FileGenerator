@@ -8,6 +8,7 @@ import {
   readLines,
   log,
   ensureDir,
+  exists,
 } from "./deps.ts";
 import type { Template } from "./types.ts";
 
@@ -86,16 +87,40 @@ export async function copyTemplates(
   for (const template of templates) {
     const _dist = resolve(
       distDir,
-      rename ? `${rename}.${template.extension}` : template.filename
+      rename ? `${rename}${template.extension}` : template.filename
     );
 
     try {
       await copy(template.location, _dist);
       copiedCounter++;
     } catch (e) {
-      log.info(`Copied ${copiedCounter} template(s).`);
-      log.error(e.message);
-      Deno.exit(1);
+      if (e.message.match("already exists")) {
+        const currentFilename =
+          rename || template.filename.replace(extname(template.filename), "");
+        const fileNameWithNoNumber = currentFilename.replace(/ \(\d+\)$/, "");
+        const number =
+          parseInt(currentFilename.replace(/\((\d+)\)$/, "$1"), 10) || 0;
+
+        // const _rename = `${fileNameWithNoNumber} (${number + 1})`;
+
+        const getNotExistingFilename = async (
+          current: number
+        ): Promise<string> => {
+          const fileWithoutExt = `${fileNameWithNoNumber} (${current})`;
+          const filename = `${fileWithoutExt}${template.extension}`;
+          const doesExist = await exists(resolve(distDir, filename));
+          if (!doesExist) return fileWithoutExt;
+          return getNotExistingFilename(current + 1);
+        };
+
+        const _rename = await getNotExistingFilename(number + 1);
+
+        await copyTemplates(templates, dist, _rename);
+      } else {
+        log.info(`Copied ${copiedCounter} template(s).`);
+        log.error(e.message);
+        Deno.exit(1);
+      }
     }
   }
 
