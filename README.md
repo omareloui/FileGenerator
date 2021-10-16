@@ -21,7 +21,8 @@ Any file with the name "base" it'll take its parent directory's name. You can ch
 
 ## Todo
 
-- [ ] Add a rename thingy.
+- [x] Add a rename thingy.
+- [ ] Copy the file if it exists with another name.
 - [ ] Search for a prompt for Deno.
 - [ ] Add generate whole projects option?
 

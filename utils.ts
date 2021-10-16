@@ -20,7 +20,7 @@ export async function ask(question: string) {
   return value as string;
 }
 
-export function setDist(enteredDist: string) {
+export function setDist(enteredDist?: string) {
   const cwd = Deno.cwd();
   return enteredDist ? resolve(cwd, enteredDist) : cwd;
 }
@@ -76,7 +76,7 @@ export function getTemplates(
 export async function copyTemplates(
   templates: Template[],
   dist: string,
-  customDistName?: string
+  rename?: string
 ) {
   const distDir = resolve(dist);
   await ensureDir(distDir);
@@ -86,9 +86,7 @@ export async function copyTemplates(
   for (const template of templates) {
     const _dist = resolve(
       distDir,
-      customDistName
-        ? `${customDistName}.${template.extension}`
-        : template.filename
+      rename ? `${rename}.${template.extension}` : template.filename
     );
 
     try {
@@ -141,9 +139,14 @@ export async function retrieveData() {
   const templates = await setTemplates();
 
   let templateNames: string[];
-  let _dist: string;
+  let _dist: string | undefined;
 
-  const { _: clTemplateNames, dist: clDist, d } = parse(Deno.args);
+  const { _: clTemplateNames, dist: clDist, d, rename } = parse(Deno.args) as {
+    _: (string | number)[];
+    dist?: string;
+    d?: string;
+    rename?: string;
+  };
 
   // == Setting up the needed templates == //
   templateNames = clTemplateNames.map((x) => x.toString());
@@ -161,6 +164,7 @@ export async function retrieveData() {
 
   return {
     dist: _dist,
+    rename,
     templateNames,
     templates: getTemplates(templates, templateNames),
   };
