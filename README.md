@@ -9,7 +9,6 @@ denon run
 # To build binary
 denon build
 
-
 # To install the app globally
 denon inst
 ```
@@ -22,4 +21,4 @@ Any file with the name "base" it'll take its parent directory's name. You can ch
 
 ## todo
 
-[ ] Add a rename thingy.
+- [ ] Add a rename thingy.
