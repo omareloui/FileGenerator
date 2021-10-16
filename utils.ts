@@ -45,7 +45,8 @@ export function setTemplateName(templateLocation: string) {
     .replace(/\.[^.]+$/, "") // Remove extension
     .replace(/(\\(\\)?|\/)/g, "-") // Replace path separators with -
     .replace(/^-/, "") // Remove the front - left from trimming the parent dir
-    .replace(`-${DEFAULT_FILENAME}`, ""); // Remove the default if it's the current template
+    .replace(`-${DEFAULT_FILENAME}`, "") // Remove the default if it's the current template
+    .toLowerCase();
 }
 
 export function checkIfTemplatesExists(
@@ -127,9 +128,13 @@ export function validateTemplates(
     Deno.exit(1);
   }
   if (!checkIfTemplatesExists(templates, templateNames)) {
-    log.error(`Can't find all the entered templates.`);
+    log.error(`Couldn't find some or all of the provided template(s).`);
     Deno.exit(1);
   }
+}
+
+export function normalizeProvidedTemplateNames(templatesNames: string[]) {
+  return templatesNames.map((x) => x.trim().toLocaleLowerCase());
 }
 
 export async function retrieveData() {
@@ -145,6 +150,7 @@ export async function retrieveData() {
   if (clTemplateNames.length === 0)
     templateNames = await promptForTemplates(templates);
 
+  templateNames = normalizeProvidedTemplateNames(templateNames);
   validateTemplates(templates, templateNames);
 
   // == Setting up the dist == //
