@@ -9,16 +9,24 @@ import {
   log,
   ensureDir,
   exists,
+  Ask,
 } from "./deps.ts";
 import type { Template } from "./types.ts";
 
 import config from "./config.ts";
 const { TEMPLATES_DIR, DEFAULT_FILENAME } = config;
 
-export async function ask(question: string) {
-  log.info(question);
-  const { value } = await readLines(Deno.stdin).next();
-  return value as string;
+export async function ask(
+  question: string,
+  options: { default?: string } = {}
+) {
+  const _ask = new Ask();
+  const { value } = await _ask.input({
+    message: question,
+    name: "value",
+    ...options,
+  });
+  return value || "";
 }
 
 export function setDist(enteredDist?: string) {
@@ -78,7 +86,7 @@ export async function copyTemplates(
   templates: Template[],
   dist: string,
   rename?: string
-) {
+): Promise<void> {
   const distDir = resolve(dist);
   await ensureDir(distDir);
 
@@ -101,8 +109,6 @@ export async function copyTemplates(
         const number =
           parseInt(currentFilename.replace(/\((\d+)\)$/, "$1"), 10) || 0;
 
-        // const _rename = `${fileNameWithNoNumber} (${number + 1})`;
-
         const getNotExistingFilename = async (
           current: number
         ): Promise<string> => {
@@ -114,17 +120,16 @@ export async function copyTemplates(
         };
 
         const _rename = await getNotExistingFilename(number + 1);
-
-        await copyTemplates(templates, dist, _rename);
+        return await copyTemplates(templates, dist, _rename);
       } else {
-        log.info(`Copied ${copiedCounter} template(s).`);
+        log.info(`Generated ${copiedCounter} template(s).`);
         log.error(e.message);
         Deno.exit(1);
       }
     }
   }
 
-  log.info(`Copied ${copiedCounter} template(s).`);
+  log.info(`Generated ${copiedCounter} template(s).`);
 }
 
 export async function promptForTemplates(templates: Template[]) {
@@ -139,7 +144,7 @@ export async function promptForTemplates(templates: Template[]) {
 }
 
 export function promptForDist() {
-  return ask("Where to copy it (leave empty for current directory)?");
+  return ask("Where to create it?", { default: "." });
 }
 
 export function validateTemplates(
