@@ -5,8 +5,6 @@ import {
   extname,
   copy,
   walk,
-  readLines,
-  log,
   ensureDir,
   exists,
   Ask,
@@ -14,7 +12,7 @@ import {
 import type { Template } from "./types.ts";
 
 import config from "./config.ts";
-const { TEMPLATES_DIR, DEFAULT_FILENAME } = config;
+const { TEMPLATES_DIR, DEFAULT_FILENAME, logger } = config;
 
 export async function ask(
   question: string,
@@ -58,15 +56,6 @@ export function setTemplateName(templateLocation: string) {
     .toLowerCase();
 }
 
-export function checkIfTemplatesExists(
-  templates: Template[],
-  templateNames: string[]
-) {
-  return templateNames.every((tn) =>
-    templates.find((temp) => temp.name === tn)
-  );
-}
-
 export function getTemplates(
   templates: Template[],
   templateNames: (string | number)[]
@@ -74,7 +63,7 @@ export function getTemplates(
   return templateNames.map((tn) => {
     const template = templates.find((t) => t.name === tn);
     if (!template) {
-      log.error(`Couldn't find "${tn}" template.`);
+      logger.error(`\nCouldn't find "${tn}" template.`);
       Deno.exit(1);
     }
 
@@ -120,27 +109,38 @@ export async function copyTemplates(
         };
 
         const _rename = await getNotExistingFilename(number + 1);
-        return await copyTemplates(templates, dist, _rename);
+        return copyTemplates(templates, dist, _rename);
       } else {
-        log.info(`Generated ${copiedCounter} template(s).`);
-        log.error(e.message);
+        logger.info(`Generated ${copiedCounter} template(s).`);
+        logger.error(e.message);
         Deno.exit(1);
       }
     }
   }
 
-  log.info(`Generated ${copiedCounter} template(s).`);
+  logger.info(`Generated ${copiedCounter} template(s).`);
 }
 
-export async function promptForTemplates(templates: Template[]) {
-  console.log("\nAvailable Templates:");
-  templates.forEach((temp) => console.log(temp.name));
+export async function promptForTemplates(
+  templates: Template[]
+): Promise<string[]> {
+  logger.info("\nAvailable Templates:");
+  templates.forEach((temp) => logger.info(` • ${temp.name}`));
   console.log("");
   const neededTemplateNames = await ask("Enter template(s) name(s).");
-  return neededTemplateNames
+  if (!neededTemplateNames) {
+    logger.warning("\nYou have to enter a template");
+    return promptForTemplates(templates);
+  }
+  const _neededTemplates = neededTemplateNames
     .split(" ")
     .map((x) => x.trim())
     .filter((x) => x);
+
+  const isValid = await validateTemplates(templates, _neededTemplates);
+  if (!isValid) return promptForTemplates(templates);
+
+  return _neededTemplates;
 }
 
 export function promptForDist() {
@@ -151,16 +151,19 @@ export function validateTemplates(
   templates: Template[],
   templateNames: string[]
 ) {
+  let hasError = false;
   if (templateNames.length === 0) {
-    log.error("You have to enter a template name.");
-    Deno.exit(1);
+    logger.error("You have to enter a template name.");
+    hasError = true;
   }
-  if (!checkIfTemplatesExists(templates, templateNames)) {
-    log.error(`Couldn't find some or all of the provided template(s).`);
-    Deno.exit(1);
-  }
+  templateNames.forEach((tn) => {
+    if (templates.findIndex((x) => x.name === tn) === -1) {
+      logger.error(`\nCouldn't find "${tn}" template.`);
+      hasError = true;
+    }
+  });
+  return !hasError;
 }
-
 export function normalizeProvidedTemplateNames(templatesNames: string[]) {
   return templatesNames.map((x) => x.trim().toLocaleLowerCase());
 }
@@ -182,9 +185,7 @@ export async function retrieveData() {
   templateNames = clTemplateNames.map((x) => x.toString());
   if (clTemplateNames.length === 0)
     templateNames = await promptForTemplates(templates);
-
   templateNames = normalizeProvidedTemplateNames(templateNames);
-  validateTemplates(templates, templateNames);
 
   // == Setting up the dist == //
   _dist = clDist || d;
