@@ -17,3 +17,4 @@ export {
 export { default as Ask } from "https://deno.land/x/ask@1.0.6/mod.ts";
 
 export * as log from "https://deno.land/std@0.111.0/log/mod.ts";
+export { renderFileToString } from "https://deno.land/x/dejs@0.10.1/mod.ts";

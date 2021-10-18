@@ -19,6 +19,21 @@ To add a file template add it to the template directory. Directories will be sep
 
 Any file with the name "base" it'll take its parent directory's name. You can change "base" in the config file.
 
+## TODO
+
+- [ ] Make it possible to provide the template with data to override defaults.
+
+  - [x] Use [dejs](https://deno.land/x/dejs@0.10.1) to resolve the files.
+  - [ ] Create a JSON file to hold the templates' data that it'll require to be able to pass it to dejs.
+  - [ ] Find a way to retrieve the data from the user.
+
+- [ ] Create a project generator.
+
+## Bugs to fix
+
+- [ ] Run `deno mod.ts vue vue`. It'll keep create the file infinitely.
+- [ ] The created file overrides existing ones, fix this.
+
 ## License
 
 MIT.
