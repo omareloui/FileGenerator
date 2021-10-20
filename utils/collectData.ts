@@ -114,12 +114,18 @@ export async function retrieveData() {
   let templateNames: string[];
   let dest: string | undefined;
 
-  const { _: clTemplateNames, dest: clDest, d, rename, ...otherArgs } = parse(
-    Deno.args
-  ) as {
+  const {
+    _: clTemplateNames,
+    dest: clDest,
+    d,
+    rename,
+    r,
+    ...otherArgs
+  } = parse(Deno.args) as {
     _: (string | number)[];
     dest?: string;
     d?: string;
+    r?: string;
     rename?: string;
     [key: string]: unknown;
   };
@@ -135,7 +141,7 @@ export async function retrieveData() {
 
   return {
     dest,
-    rename,
+    rename: rename || r,
     templateNames,
     templates: getTemplates(templates, templateNames),
     otherArgs,
