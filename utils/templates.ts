@@ -33,7 +33,7 @@ export async function setTemplates() {
 }
 
 export function getTemplateProps(templateName: string) {
-  return templatesConfig.find((x) => x.template === templateName)?.props;
+  return templatesConfig[templateName]?.props;
 }
 
 export function setTemplateName(templateLocation: string) {

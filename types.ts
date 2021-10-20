@@ -7,8 +7,9 @@ export interface TemplateProps {
   };
 }
 export interface TemplateConfig {
-  template: string;
-  props?: TemplateProps;
+  [template: string]: {
+    props?: TemplateProps;
+  };
 }
 
 export interface Template {

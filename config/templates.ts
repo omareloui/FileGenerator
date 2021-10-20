@@ -18,11 +18,11 @@ const REQUIRED_KEBAB = {
   hint: "in kebab-case",
 };
 
-const templatesConfig: TemplateConfig[] = [
-  { template: "licence-wtfpl", props: LICENCE_PROPS },
-  { template: "licence-mit", props: LICENCE_PROPS },
-  { template: "mongoose-model", props: { name: REQUIRED_KEBAB } },
-  { template: "lit", props: { name: REQUIRED_KEBAB } },
-];
+const templatesConfig: TemplateConfig = {
+  lit: { props: { name: REQUIRED_KEBAB } },
+  "mongoose-model": { props: { name: REQUIRED_KEBAB } },
+  "licence-wtfpl": { props: LICENCE_PROPS },
+  "licence-mit": { props: LICENCE_PROPS },
+};
 
 export default templatesConfig;
