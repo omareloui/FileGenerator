@@ -11,9 +11,9 @@ import type { Template, TemplateProps } from "../types.ts";
 import config from "../config/index.ts";
 const { logger } = config;
 
-export function setDist(enteredDist?: string) {
+export function setDest(enteredDest?: string) {
   const cwd = Deno.cwd();
-  return enteredDist ? resolve(cwd, enteredDist) : cwd;
+  return enteredDest ? resolve(cwd, enteredDest) : cwd;
 }
 
 export async function askForTemplates(
@@ -36,7 +36,7 @@ export async function askForTemplates(
   return _neededTemplates;
 }
 
-export function askForDist() {
+export function askForDest() {
   return ask("Where to create it?", { default: "." });
 }
 
@@ -112,13 +112,13 @@ export async function retrieveData() {
   const templates = await setTemplates();
 
   let templateNames: string[];
-  let dist: string | undefined;
+  let dest: string | undefined;
 
-  const { _: clTemplateNames, dist: clDist, d, rename, ...otherArgs } = parse(
+  const { _: clTemplateNames, dest: clDest, d, rename, ...otherArgs } = parse(
     Deno.args
   ) as {
     _: (string | number)[];
-    dist?: string;
+    dest?: string;
     d?: string;
     rename?: string;
     [key: string]: unknown;
@@ -129,12 +129,12 @@ export async function retrieveData() {
     templateNames = await askForTemplates(templates);
   templateNames = normalizeProvidedTemplateNames(templateNames);
 
-  dist = clDist || d;
-  if (clTemplateNames.length === 0 && !clDist && !d) dist = await askForDist();
-  dist = setDist(dist);
+  dest = clDest || d;
+  if (clTemplateNames.length === 0 && !clDest && !d) dest = await askForDest();
+  dest = setDest(dest);
 
   return {
-    dist,
+    dest,
     rename,
     templateNames,
     templates: getTemplates(templates, templateNames),

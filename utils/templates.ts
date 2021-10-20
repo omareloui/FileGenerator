@@ -89,7 +89,7 @@ export function normalizeProvidedTemplateNames(templatesNames: string[]) {
 
 export async function generateTemplates(
   templates: Template[],
-  dist: string,
+  dest: string,
   rename?: string,
   otherArgs?: Record<string, unknown>,
   retrievedProps?: Record<string, unknown>
@@ -102,11 +102,11 @@ export async function generateTemplates(
     if (!rename && template.defaultFilename)
       rename = parser(template.defaultFilename, props);
 
-    let fileDist: string;
+    let fileDest: string;
 
     try {
-      fileDist = await getFileDist({
-        distDir: dist,
+      fileDest = await getFileDest({
+        destDir: dest,
         renameTo: rename,
         templateSrc,
       });
@@ -115,9 +115,9 @@ export async function generateTemplates(
         const filename = rename
           ? `${rename}${template.extension}`
           : template.filename;
-        rename = await getNotExistingFilename(filename, dist);
-        fileDist = await getFileDist({
-          distDir: dist,
+        rename = await getNotExistingFilename(filename, dest);
+        fileDest = await getFileDest({
+          destDir: dest,
           renameTo: rename,
           templateSrc,
         });
@@ -126,7 +126,7 @@ export async function generateTemplates(
 
     try {
       await createFromTemplate({
-        dist: fileDist,
+        dest: fileDest,
         props,
         templateSrc: template.location,
       });
@@ -140,21 +140,21 @@ export async function generateTemplates(
   logger.info(`Generated ${counter} template(s).`);
 }
 
-export async function getFileDist({
+export async function getFileDest({
   templateSrc,
   renameTo,
-  distDir,
+  destDir,
 }: {
   templateSrc: string;
   renameTo?: string;
-  distDir: string;
+  destDir: string;
 }) {
-  const distFilename = renameTo
+  const destFilename = renameTo
     ? `${renameTo}${extname(templateSrc)}`
     : basename(templateSrc);
-  const dist = `${distDir}/${distFilename}`;
-  await ensureDir(distDir);
-  const fileAlreadyExists = await exists(dist);
-  if (fileAlreadyExists) throw new Error(`File: ${dist} already exists`);
-  return dist;
+  const dest = `${destDir}/${destFilename}`;
+  await ensureDir(destDir);
+  const fileAlreadyExists = await exists(dest);
+  if (fileAlreadyExists) throw new Error(`File: ${dest} already exists`);
+  return dest;
 }

@@ -2,11 +2,11 @@ import { renderFileToString } from "../deps.ts";
 import { kebabToPascal } from "./index.ts";
 
 export async function createFromTemplate({
-  dist,
+  dest,
   props = {},
   templateSrc,
 }: {
-  dist: string;
+  dest: string;
   props?: Record<string, unknown>;
   templateSrc: string;
 }) {
@@ -15,5 +15,5 @@ export async function createFromTemplate({
     ...props,
     ...dejsUtils,
   });
-  await Deno.writeFile(dist, new TextEncoder().encode(resolvedTemplateString));
+  await Deno.writeFile(dest, new TextEncoder().encode(resolvedTemplateString));
 }
