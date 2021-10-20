@@ -9,6 +9,7 @@ export interface TemplateProps {
 export interface TemplateConfig {
   [template: string]: {
     props?: TemplateProps;
+    defaultFilename?: string;
   };
 }
 
@@ -18,4 +19,5 @@ export interface Template {
   location: string;
   extension: string;
   props?: TemplateProps;
+  defaultFilename?: string;
 }

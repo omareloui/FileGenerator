@@ -4,3 +4,4 @@ export * from "./files.ts";
 export * from "./ask.ts";
 export * from "./templates.ts";
 export * from "./caseConverts.ts";
+export * from "./customSyntax.ts";

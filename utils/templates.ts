@@ -3,6 +3,7 @@ import {
   getNotExistingFilename,
   createFromTemplate,
   retrieveTemplateProps,
+  parser,
 } from "./index.ts";
 import type { Template } from "../types.ts";
 
@@ -27,6 +28,7 @@ export async function setTemplates() {
       name: name,
       extension: extname(f),
       props: getTemplateProps(name),
+      defaultFilename: getTemplateDefaultFilename(name),
     };
   });
   return templates;
@@ -34,6 +36,10 @@ export async function setTemplates() {
 
 export function getTemplateProps(templateName: string) {
   return templatesConfig[templateName]?.props;
+}
+
+export function getTemplateDefaultFilename(templateName: string) {
+  return templatesConfig[templateName]?.defaultFilename;
 }
 
 export function setTemplateName(templateLocation: string) {
@@ -91,6 +97,9 @@ export async function generateTemplates(
   for (const template of templates) {
     try {
       const props = await retrieveTemplateProps(template, otherArgs);
+      if (!rename && template.defaultFilename) {
+        rename = parser(template.defaultFilename, props);
+      }
       await createFromTemplate({
         srcTemplate: template.location,
         distDir: dist,
