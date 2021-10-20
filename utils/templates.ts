@@ -1,4 +1,4 @@
-import { basename, extname, walk } from "../deps.ts";
+import { basename, extname, walk, ensureDir, exists } from "../deps.ts";
 import {
   getNotExistingFilename,
   createFromTemplate,
@@ -91,35 +91,70 @@ export async function generateTemplates(
   templates: Template[],
   dist: string,
   rename?: string,
-  otherArgs?: Record<string, unknown>
+  otherArgs?: Record<string, unknown>,
+  retrievedProps?: Record<string, unknown>
 ): Promise<void> {
   let counter = 0;
   for (const template of templates) {
+    const templateSrc = template.location;
+    const props =
+      retrievedProps || (await retrieveTemplateProps(template, otherArgs));
+    if (!rename && template.defaultFilename)
+      rename = parser(template.defaultFilename, props);
+
+    let fileDist: string;
+
     try {
-      const props = await retrieveTemplateProps(template, otherArgs);
-      if (!rename && template.defaultFilename) {
-        rename = parser(template.defaultFilename, props);
-      }
-      await createFromTemplate({
-        srcTemplate: template.location,
+      fileDist = await getFileDist({
         distDir: dist,
         renameTo: rename,
-        props,
+        templateSrc,
       });
-      counter++;
     } catch (e) {
       if (e.message.match("already exists")) {
         const filename = rename
           ? `${rename}${template.extension}`
           : template.filename;
-        const _rename = await getNotExistingFilename(filename, dist);
-        return generateTemplates(templates, dist, _rename);
-      } else {
-        logger.info(`Generated ${counter} template(s).`);
-        logger.error(e.message);
-        Deno.exit(1);
-      }
+        rename = await getNotExistingFilename(filename, dist);
+        fileDist = await getFileDist({
+          distDir: dist,
+          renameTo: rename,
+          templateSrc,
+        });
+      } else throw new Error(e);
+    }
+
+    try {
+      await createFromTemplate({
+        dist: fileDist,
+        props,
+        templateSrc: template.location,
+      });
+      counter++;
+    } catch (e) {
+      logger.info(`Generated ${counter} template(s).`);
+      logger.error(e.message);
+      Deno.exit(1);
     }
   }
   logger.info(`Generated ${counter} template(s).`);
+}
+
+export async function getFileDist({
+  templateSrc,
+  renameTo,
+  distDir,
+}: {
+  templateSrc: string;
+  renameTo?: string;
+  distDir: string;
+}) {
+  const distFilename = renameTo
+    ? `${renameTo}${extname(templateSrc)}`
+    : basename(templateSrc);
+  const dist = `${distDir}/${distFilename}`;
+  await ensureDir(distDir);
+  const fileAlreadyExists = await exists(dist);
+  if (fileAlreadyExists) throw new Error(`File: ${dist} already exists`);
+  return dist;
 }

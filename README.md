@@ -34,7 +34,7 @@ Any file with the name "base" it'll take its parent directory's name. You can ch
 ## Bugs to fix
 
 - [x] The created file overrides existing ones, fix this.
-- [ ] Run `deno mod.ts vue vue`. It'll keep create the file infinitely.
+- [x] Run `deno mod.ts vue vue`. It'll keep create the file infinitely.
 
 ## License
 
