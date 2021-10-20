@@ -1,10 +1,10 @@
 import { LitElement, html } from "lit";
 import { customElement } from "lit/decorators.js";
 
-import styles from "./base-element.scss";
+import styles from "./<%= name %>.scss";
 
-@customElement("base-element")
-export class BaseElement extends LitElement {
+@customElement("<%= name %>")
+export class <%= kebabToPascal(name) %> extends LitElement {
   static styles = styles;
 
   render() {
@@ -14,6 +14,6 @@ export class BaseElement extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    "base-element": BaseElement;
+    "<%= name %>": <%= kebabToPascal(name) %>;
   }
 }

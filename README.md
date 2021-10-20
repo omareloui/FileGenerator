@@ -21,18 +21,20 @@ Any file with the name "base" it'll take its parent directory's name. You can ch
 
 ## TODO
 
-- [ ] Make it possible to provide the template with data to override defaults.
+- [x] Make it possible to provide the template with data to override defaults.
 
   - [x] Use [dejs](https://deno.land/x/dejs@0.10.1) to resolve the files.
-  - [ ] Create a JSON file to hold the templates' data that it'll require to be able to pass it to dejs.
-  - [ ] Find a way to retrieve the data from the user.
+  - [x] Create a JSON file to hold the templates' data that it'll require to be able to pass it to dejs.
+  - [x] Find a way to retrieve the data from the user.
+
+- [ ] Add default file name field to template config.
 
 - [ ] Create a project generator.
 
 ## Bugs to fix
 
-- [ ] Run `deno mod.ts vue vue`. It'll keep create the file infinitely.
 - [ ] The created file overrides existing ones, fix this.
+- [ ] Run `deno mod.ts vue vue`. It'll keep create the file infinitely.
 
 ## License
 
