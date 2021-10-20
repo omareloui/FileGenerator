@@ -27,13 +27,13 @@ Any file with the name "base" it'll take its parent directory's name. You can ch
   - [x] Create a JSON file to hold the templates' data that it'll require to be able to pass it to dejs.
   - [x] Find a way to retrieve the data from the user.
 
-- [ ] Add default file name field to template config.
+- [x] Add default file name field to template config.
 
 - [ ] Create a project generator.
 
 ## Bugs to fix
 
-- [ ] The created file overrides existing ones, fix this.
+- [x] The created file overrides existing ones, fix this.
 - [ ] Run `deno mod.ts vue vue`. It'll keep create the file infinitely.
 
 ## License

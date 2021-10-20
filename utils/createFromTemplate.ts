@@ -1,4 +1,10 @@
-import { renderFileToString, basename, ensureDir, extname } from "../deps.ts";
+import {
+  renderFileToString,
+  basename,
+  ensureDir,
+  extname,
+  exists,
+} from "../deps.ts";
 import { kebabToPascal } from "./index.ts";
 
 /**
@@ -31,5 +37,7 @@ export async function createFromTemplate({
     ...dejsUtils,
   });
   await ensureDir(distDir);
+  const fileAlreadyExists = await exists(dist);
+  if (fileAlreadyExists) throw new Error(`File: ${dist} already exists`);
   await Deno.writeFile(dist, new TextEncoder().encode(resolvedTemplateString));
 }
