@@ -7,8 +7,13 @@
 
   "scripts": {
     "start": {
-      "cmd": "deno run mod.ts",
+      "cmd": "mod.ts",
       "desc": "Run app on dev mode"
+    },
+
+    "test": {
+      "cmd": "deno test",
+      "desc": "Test the application"
     },
 
     "build": {
