@@ -1,0 +1,35 @@
+{
+  "root": true,
+  "ignorePatterns": [
+    "node_modules"
+  ],
+  "extends": [
+    "airbnb-base",
+    "airbnb-typescript",
+    "prettier"
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "react/jsx-filename-extension": "off",
+    "@typescript-eslint/no-explicit-any": "warn",
+    "import/prefer-default-export": "off",
+    "quotes": [
+      "error",
+      "double"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "comma-dangle": [
+      "error",
+      "always-multiline"
+    ],
+    "curly": [
+      "error",
+      "multi"
+    ]
+  }
+}

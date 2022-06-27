@@ -1,0 +1,26 @@
+{
+  "name": "gf",
+  "version": "1.0.0",
+  "description": "A boilerplate file generator for any project.",
+  "main": "dist/app.js",
+  "scripts": {
+    "start": "pnpm build && node dist/app.js",
+    "build": "tsc",
+    "lint": "eslint ./src",
+    "format": "prettier ./src"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.30.0",
+    "@typescript-eslint/parser": "^5.30.0",
+    "eslint": "^8.18.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "prettier": "^2.7.1",
+    "typescript": "^4.7.4"
+  }
+}

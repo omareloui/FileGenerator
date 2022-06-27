@@ -1,2 +1,2 @@
-bin
-.vscode
+node_modules
+dist
