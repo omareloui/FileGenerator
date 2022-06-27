@@ -25,7 +25,13 @@ const REQUIRED_KEBAB_NAME = {
 };
 
 const templatesConfig: TemplateConfig = {
-  lit: { props: { name: REQUIRED_KEBAB }, defaultFilename: "{name}" },
+  lit: {
+    props: {
+      ...REQUIRED_KEBAB_NAME,
+      styles: { default: true, type: "boolean" },
+    },
+    defaultFilename: "{name}",
+  },
   "mongoose-model": { props: REQUIRED_KEBAB_NAME, defaultFilename: "{name,p}" },
   "oak-controller": {
     props: REQUIRED_KEBAB_NAME,

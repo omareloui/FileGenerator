@@ -1,12 +1,15 @@
 import { LitElement, html } from "lit";
 import { customElement } from "lit/decorators.js";
 
-import styles from "./<%= name %>.scss";
+<% if (styles) { %>
+import styles from "./<%= name %>.sass";
+<% } %>
 
 @customElement("<%= name %>")
 export class <%= kebabToPascal(name) %> extends LitElement {
+<% if (styles) { %>
   static styles = styles;
-
+<% } %>
   render() {
     return html``;
   }

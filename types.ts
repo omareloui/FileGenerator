@@ -4,6 +4,7 @@ export interface TemplateProps {
     isRequired?: boolean;
     shouldAsk?: boolean;
     hint?: string;
+    type?: string;
   };
 }
 export interface TemplateConfig {
