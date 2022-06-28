@@ -1,19 +1,24 @@
 import inquirer from "inquirer";
-import { Template } from "../@types";
+import type { Template, PropValue } from "../@types";
 
-export async function getPropAnswer(
+export async function getPropAnswer<T extends PropValue>(
   template: Template,
   propName: string,
-): Promise<string> {
+): Promise<T> {
   const propOptions = template.props![propName];
 
-  if (propOptions.default) return propOptions.default as string;
+  if (propOptions && propOptions.shouldAsk === false)
+    return propOptions.default as T;
 
   const answer = await inquirer.prompt({
     name: "prop",
-    message: `Enter value for ${propName}`,
+    message:
+      propOptions?.type === "confirm"
+        ? `Add ${propName}`
+        : `Enter value for ${propName}`,
     suffix: propOptions.hint && ` (${propOptions.hint})`,
-    validate: propOptions && propOptions.validator,
+    validate: propOptions?.validator,
+    type: propOptions?.type,
   });
 
   return answer.prop;

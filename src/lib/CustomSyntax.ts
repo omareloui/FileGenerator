@@ -1,5 +1,7 @@
 import { CaseConvertor } from "./CaseConvertor";
 
+import type { PropValue } from "../@types";
+
 export type Case = "p" | "c" | "l" | "s" | "ss";
 
 export class CustomSyntax {
@@ -7,9 +9,10 @@ export class CustomSyntax {
 
   private static CASE_SYNTAX_REGEX = /\{.+?,(p|c|l|s|ss)\}/;
 
-  public static parse<
-    T extends Record<string, string | number | Date | undefined>,
-  >(str: string, props?: T) {
+  public static parse<T extends Record<string, PropValue>>(
+    str: string,
+    props?: T,
+  ) {
     if (!props) return str;
 
     const propKeys = Object.keys(props || {});

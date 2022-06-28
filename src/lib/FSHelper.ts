@@ -1,4 +1,4 @@
-import { opendir } from "fs/promises";
+import { opendir, mkdir } from "fs/promises";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -11,11 +11,15 @@ async function* walk(dir: string): AsyncGenerator<string> {
 }
 
 export class FSHelper {
-  static getCurrentFileMeta = function getDirname(currentUrl: string) {
+  static getCurrentFileMeta(currentUrl: string) {
     const fileName = fileURLToPath(currentUrl);
     const dirName = dirname(fileName);
     return { fileName, dirName };
-  };
+  }
 
   static walk = walk;
+
+  static async ensureDirs(dir: string) {
+    await mkdir(dir, { recursive: true });
+  }
 }

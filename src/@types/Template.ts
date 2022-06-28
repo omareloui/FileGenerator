@@ -1,10 +1,12 @@
+export type PropValue = string | boolean | number;
+
 export interface TemplateProps {
   [KProp: string]: {
     default?: unknown;
     isRequired?: boolean;
     shouldAsk?: boolean;
     hint?: string;
-    type?: string;
+    type?: "input" | "confirm" | "number" | "password";
     validator?: (v: string) => boolean;
   };
 }
@@ -28,7 +30,7 @@ export interface Template {
 }
 
 export interface RetrievedTemplate extends Omit<Template, "props"> {
-  props?: { [KProp: string]: string };
+  props?: { [KProp: string]: PropValue };
   filename: string;
   dist: string;
 }

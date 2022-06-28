@@ -1,12 +1,10 @@
 import { LitElement, html } from "lit";
 import { customElement } from "lit/decorators.js";
 
-<% if (styles) { %>
-import styles from "./<%= name %>.sass";
-<% } %>
+<% if (styles) { %>import styles from "./<%= name %>.sass"; <% } %>
 
 @customElement("<%= name %>")
-export class <%= kebabToPascal(name) %> extends LitElement {
+export class <%= CaseConvertor.kebabToPascal(name) %> extends LitElement {
 <% if (styles) { %>
   static styles = styles;
 <% } %>
@@ -17,6 +15,6 @@ export class <%= kebabToPascal(name) %> extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    "<%= name %>": <%= kebabToPascal(name) %>;
+    "<%= name %>": <%= CaseConvertor.kebabToPascal(name) %>;
   }
 }

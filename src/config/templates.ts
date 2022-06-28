@@ -1,3 +1,4 @@
+import { join } from "path";
 import type { TemplateConfig, TemplateProps } from "../@types";
 
 const CWD = process.cwd();
@@ -26,23 +27,27 @@ const LICENSE_OPTIONS: TemplateConfig[string] = {
     },
   },
   defaultFilename: "LICENSE",
-  defaultDist: CWD,
 };
 
 const templatesConfig: TemplateConfig = {
-  // lit: {
-  //   props: {
-  //     ...REQUIRED_KEBAB_NAME,
-  //     styles: { default: true, type: "boolean" },
-  //   },
-  //   defaultFilename: "{name}",
-  // },
-  // "mongoose-model": { props: REQUIRED_KEBAB_NAME, defaultFilename: "{name,p}" },
+  lit: {
+    props: {
+      ...REQUIRED_KEBAB_NAME,
+      styles: { default: true, type: "confirm" },
+    },
+    defaultFilename: "{name}",
+  },
 
-  // "oak-controller": {
-  //   props: REQUIRED_KEBAB_NAME,
-  //   defaultFilename: "{name}.controller",
-  // },
+  "mongoose-model": {
+    props: REQUIRED_KEBAB_NAME,
+    defaultFilename: "{name,p}",
+    defaultDist: join(CWD, "src", "models"),
+  },
+
+  "oak-controller": {
+    props: REQUIRED_KEBAB_NAME,
+    defaultFilename: "{name}.controller",
+  },
 
   vue: {},
 
