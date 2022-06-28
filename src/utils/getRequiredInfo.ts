@@ -1,7 +1,10 @@
+import { join } from "path";
 import inquirer from "inquirer";
 
 import { getTemplates } from "./getTemplates";
 import { getPropsAnswers } from "./getPropsAnswers";
+import { getArgs } from "./getArgs";
+
 import { CustomSyntax } from "../lib";
 
 import type { Template, RetrievedTemplate, PropValue } from "../@types";
@@ -33,16 +36,26 @@ function getFilename(
     : template.filename;
 }
 
+function getDist(template: Template, argsDist: string | undefined) {
+  return (
+    (argsDist && join(process.cwd(), argsDist)) ||
+    template.defaultDist ||
+    process.cwd()
+  );
+}
+
 export async function getRequiredInfo(): Promise<RetrievedTemplate> {
   const templates = await getTemplates();
 
-  const template = await askForTemplate(templates);
+  const args = getArgs(templates);
+
+  const template = args.template || (await askForTemplate(templates));
   const props = await askForTemplateProps(template);
 
   return {
     ...template,
     props,
     filename: getFilename(template, props),
-    dist: template.defaultDist || process.cwd(),
+    dist: getDist(template, args.dist),
   };
 }

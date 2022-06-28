@@ -1,3 +1,4 @@
+export * from "./getArgs";
 export * from "./getTemplates";
 export * from "./getTemplateFromSrc";
 export * from "./getRequiredInfo";
