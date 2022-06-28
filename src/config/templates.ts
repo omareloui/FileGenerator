@@ -38,6 +38,7 @@ const templatesConfig: TemplateConfig = {
   //   defaultFilename: "{name}",
   // },
   // "mongoose-model": { props: REQUIRED_KEBAB_NAME, defaultFilename: "{name,p}" },
+
   // "oak-controller": {
   //   props: REQUIRED_KEBAB_NAME,
   //   defaultFilename: "{name}.controller",
