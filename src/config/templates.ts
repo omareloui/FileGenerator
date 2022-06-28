@@ -1,18 +1,18 @@
-import type { TemplateConfig } from "../@types";
+import type { TemplateConfig, TemplateProps } from "../@types";
 
 const CWD = process.cwd();
 
-const REQUIRED_KEBAB = {
+const REQUIRED_KEBAB: TemplateProps[string] = {
   isRequired: true,
   hint: "in kebab-case",
   validator: (v: string) => !!v.match(/^[a-z][a-z1-9-]+$/),
 };
 
-const REQUIRED_KEBAB_NAME = {
+const REQUIRED_KEBAB_NAME: TemplateProps = {
   name: REQUIRED_KEBAB,
 };
 
-const LICENSE_OPTIONS = {
+const LICENSE_OPTIONS: TemplateConfig[string] = {
   props: {
     name: {
       isRequired: true,
@@ -42,6 +42,8 @@ const templatesConfig: TemplateConfig = {
   //   props: REQUIRED_KEBAB_NAME,
   //   defaultFilename: "{name}.controller",
   // },
+
+  vue: {},
 
   "license-wtfpl": LICENSE_OPTIONS,
   "license-mit": LICENSE_OPTIONS,

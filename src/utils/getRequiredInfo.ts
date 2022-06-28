@@ -21,12 +21,13 @@ export async function getRequiredInfo(): Promise<RetrievedTemplate> {
   const templateProps =
     selectedTemplate?.props && Object.keys(selectedTemplate.props);
 
-  const propsAnswers = await getPropsAnswers(selectedTemplate, templateProps!);
+  const propsAnswers =
+    templateProps && (await getPropsAnswers(selectedTemplate, templateProps));
 
   return {
     ...selectedTemplate,
     props: propsAnswers,
-    filename: selectedTemplate.defaultFilename!,
+    filename: selectedTemplate.defaultFilename || selectedTemplate.filename,
     dist: selectedTemplate.defaultDist || process.cwd(),
   };
 }
