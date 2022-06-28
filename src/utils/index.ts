@@ -1,4 +1,5 @@
 export * from "./getArgs";
+export * from "./getConfigFromFile";
 export * from "./getTemplates";
 export * from "./getTemplateFromSrc";
 export * from "./getRequiredInfo";

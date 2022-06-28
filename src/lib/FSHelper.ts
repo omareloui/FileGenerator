@@ -1,4 +1,4 @@
-import { opendir, mkdir } from "fs/promises";
+import { opendir, mkdir, readFile } from "fs/promises";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -21,5 +21,16 @@ export class FSHelper {
 
   static async ensureDirs(dir: string) {
     await mkdir(dir, { recursive: true });
+  }
+
+  static async readFile(path: string) {
+    let content: string | undefined;
+
+    try {
+      content = await readFile(path, { encoding: "utf-8" });
+      // eslint-disable-next-line no-empty
+    } catch (err) {}
+
+    return content;
   }
 }
