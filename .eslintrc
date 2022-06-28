@@ -1,7 +1,8 @@
 {
   "root": true,
   "ignorePatterns": [
-    "node_modules"
+    "node_modules",
+    "dist"
   ],
   "extends": [
     "airbnb-base",
@@ -12,23 +13,25 @@
     "project": "./tsconfig.json"
   },
   "rules": {
+    "no-restricted-syntax": "off",
     "react/jsx-filename-extension": "off",
     "@typescript-eslint/no-explicit-any": "warn",
     "import/prefer-default-export": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
     "quotes": [
-      "error",
+      "warn",
       "double"
     ],
     "semi": [
-      "error",
+      "warn",
       "always"
     ],
     "comma-dangle": [
-      "error",
+      "warn",
       "always-multiline"
     ],
     "curly": [
-      "error",
+      "warn",
       "multi"
     ]
   }
