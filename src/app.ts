@@ -1,3 +1,5 @@
+#!/usr/bin/env node --experimental-specifier-resolution=node
+
 import { getRequiredInfo, generateTemplate } from "./utils";
 
 async function main() {
