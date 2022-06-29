@@ -3,7 +3,6 @@ export type PropValue = string | boolean | number;
 export interface TemplateProps {
   [KProp: string]: {
     default?: unknown;
-    isRequired?: boolean;
     shouldAsk?: boolean;
     hint?: string;
     type?: "input" | "confirm" | "number" | "password";
