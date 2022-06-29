@@ -1,0 +1,49 @@
+{
+  "name": "gf",
+  "version": "1.0.0",
+  "description": "A boilerplate file generator for any project.",
+  "main": "dist/app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node --experimental-specifier-resolution=node dist/app.js",
+    "dev": "pnpm build && node --experimental-specifier-resolution=node dist/app.js",
+    "build": "rimraf dist && tsc",
+    "lint": "eslint ./src",
+    "format": "prettier ./src",
+    "test": "jest"
+  },
+  "keywords": [
+    "boilerplate",
+    "generator",
+    "templates"
+  ],
+  "author": "Omar Eloui <omareloui@hotmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/argparse": "^2.0.10",
+    "@types/ejs": "^3.1.1",
+    "@types/inquirer": "^8.2.1",
+    "@types/jest": "^28.1.3",
+    "@types/node": "^18.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.30.0",
+    "@typescript-eslint/parser": "^5.30.0",
+    "eslint": "^8.18.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "jest": "^28.1.1",
+    "prettier": "^2.7.1",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^28.0.5",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "argparse": "^2.0.1",
+    "ejs": "^3.1.8",
+    "inquirer": "^9.0.0",
+    "jsonc": "^2.0.0",
+    "ora": "^6.1.2",
+    "yaml": "^2.1.1"
+  }
+}

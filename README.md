@@ -1,5 +1,6 @@
 # File Generator
 
+<!--
 ## How to setup
 
 ```shell
@@ -15,18 +16,18 @@ denon inst
 
 ## How it works
 
-To add a template file create a file in the configured templates directory (you can change it from the `config/index.ts` file it defaults to `_templates`). subdirectories will be separated with a dash (-) for the template name.
+To add a template file create a file in the configured templates directory (you can change it from the `config/index.ts` file it defaults to `templates`). subdirectories will be separated with a dash (-) for the template name.
 
 Any file with the name "base" it'll take its parent directory's name. You can change "base" in the config file.
 
 ### Example
 
-A file tree like this (assuming the `_template` directory is the root directory for templates)
+A file tree like this (assuming the `template` directory is the root directory for templates)
 
 ```bash
-_templates
+templates
 |
-├───licence
+├───license
 │       MIT
 │       WTFPL
 ├───lit
@@ -72,9 +73,9 @@ FG uses **[dejs](https://deno.land/x/dejs@0.10.1)** templating engine, the Node'
 
 #### **Pass props to a template**
 
-Assuming you have `_template/template-name.ext` template file created, and defined as follows
+Assuming you have `template/template-name.ext` template file created, and defined as follows
 
-`_template/template.name.ext`
+`template/template.name.ext`
 
 ```ejs
 <%= name %>
@@ -210,6 +211,8 @@ filename -> name.ext
 filename -> template-name.ext
 */
 ```
+
+-->
 
 ---
 

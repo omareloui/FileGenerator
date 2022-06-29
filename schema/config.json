@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Generate File Config Schema",
+  "description": "Generate file configurations.",
+  "type": "object",
+  "properties": {
+    "templates": {
+      "description": "Templates configurations.",
+      "type": "object",
+      "patternProperties": {
+        ".*": {
+          "description": "Template configurations",
+          "type": "object",
+          "properties": {
+            "dist": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

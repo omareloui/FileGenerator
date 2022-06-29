@@ -1,3 +1,2 @@
-bin
-.vscode
-_templates/**/*
+node_modules
+dist
