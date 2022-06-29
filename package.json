@@ -8,7 +8,7 @@
     "access": "public"
   },
   "bin": {
-    "gf": "./start.sh"
+    "gf": "./start.ps1"
   },
   "scripts": {
     "start": "node --experimental-specifier-resolution=node dist/app.js",
