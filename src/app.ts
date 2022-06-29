@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/node --experimental-specifier-resolution=node
 
 import { getRequiredInfo, generateTemplate } from "./utils";
 
