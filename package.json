@@ -1,9 +1,12 @@
 {
-  "name": "gf",
+  "name": "@omareloui/gf",
   "version": "1.0.0",
   "description": "A boilerplate file generator for any project.",
   "main": "dist/app.js",
   "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
   "bin": {
     "gf": "node --experimental-specifier-resolution=node dist/app.js"
   },
