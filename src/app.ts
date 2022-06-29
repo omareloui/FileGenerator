@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { getRequiredInfo, generateTemplate } from "./utils";
 
 async function main() {

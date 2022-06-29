@@ -4,6 +4,9 @@
   "description": "A boilerplate file generator for any project.",
   "main": "dist/app.js",
   "type": "module",
+  "bin": {
+    "gf": "node --experimental-specifier-resolution=node dist/app.js"
+  },
   "scripts": {
     "start": "node --experimental-specifier-resolution=node dist/app.js",
     "dev": "pnpm build && node --experimental-specifier-resolution=node dist/app.js",
