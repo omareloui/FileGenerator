@@ -7,7 +7,9 @@
   "publishConfig": {
     "access": "public"
   },
-  "bin": "./start.sh",
+  "bin": {
+    "gf": "./start.sh"
+  },
   "scripts": {
     "start": "node --experimental-specifier-resolution=node dist/app.js",
     "dev": "pnpm build && node --experimental-specifier-resolution=node dist/app.js",
