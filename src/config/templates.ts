@@ -51,6 +51,12 @@ const templatesConfig: TemplateConfig = {
 
   vue: {},
 
+  readme: {
+    props: { title: {} },
+    defaultFilename: "README",
+    defaultDist: CWD,
+  },
+
   "license-wtfpl": LICENSE_OPTIONS,
   "license-mit": LICENSE_OPTIONS,
 };
