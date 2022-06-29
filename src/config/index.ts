@@ -17,7 +17,7 @@ const config = {
   ),
 
   configFile: {
-    FILENAME: "generate-file",
+    FILENAME: "file-generator",
     FILE_TYPE: "yaml" as ConfigFileExtension,
     FILE_LOCATION: process.cwd(),
   },

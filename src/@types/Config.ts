@@ -1,4 +1,4 @@
-export type ConfigFileExtension = "yaml" | "yml" | "json";
+export type ConfigFileExtension = "yaml" | "yml" | "json" | "jsonc";
 
 export interface ConfigFile {
   "default-dist"?: string;

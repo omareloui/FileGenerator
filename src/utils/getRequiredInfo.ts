@@ -42,7 +42,11 @@ function getDistFromArgs(argsDist: string | undefined) {
   return argsDist && join(process.cwd(), argsDist);
 }
 
-function getDistFromConfigFile(template: Template, configFile: ConfigFile) {
+function getDistFromConfigFile(
+  template: Template,
+  configFile: ConfigFile | undefined,
+) {
+  if (!configFile) return undefined;
   const { templates } = configFile;
   const templateConfig = templates && templates[template.name];
   const templateDist = templateConfig?.dist;
@@ -52,7 +56,7 @@ function getDistFromConfigFile(template: Template, configFile: ConfigFile) {
 function getDist(
   template: Template,
   argsDist: string | undefined,
-  configFile: ConfigFile,
+  configFile: ConfigFile | undefined,
 ) {
   return (
     getDistFromArgs(argsDist) ||

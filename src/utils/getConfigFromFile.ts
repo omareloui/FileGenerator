@@ -1,32 +1,43 @@
 import { join } from "path";
 
-import { parse } from "yaml";
+import { parse as yamlParser } from "yaml";
+import { jsonc } from "jsonc";
 
 import { FSHelper } from "../lib";
 import config from "../config";
 
-import type { ConfigFile } from "../@types/Config";
+import type { ConfigFile, ConfigFileExtension } from "../@types/Config";
 
 const { FILE_TYPE, FILENAME, FILE_LOCATION } = config.configFile;
 
-async function getConfigFromYaml() {
-  const yamlPath = join(FILE_LOCATION, `${FILENAME}.yaml`);
-  const ymlPath = join(FILE_LOCATION, `${FILENAME}.yml`);
+function readFiles(paths: string[]) {
+  return Promise.all(paths.map(FSHelper.readFile));
+}
 
-  const yaml = await FSHelper.readFile(yamlPath);
-  const parsedYaml = parse(yaml || "");
-
-  const yml = await FSHelper.readFile(ymlPath);
-  const parsedYml = parse(yml || "");
-
-  return parsedYaml || parsedYml || {};
+function parseFiles(
+  contents: (string | undefined)[],
+  parser: (content: string) => unknown,
+) {
+  return contents.map(c => parser(c || "")).find(c => c) as
+    | ConfigFile
+    | undefined;
 }
 
 export async function getConfigFromFile() {
-  if (FILE_TYPE !== "yaml" && FILE_TYPE !== "yml")
+  const extensions: ConfigFileExtension[] = ["json", "jsonc", "yaml", "yml"];
+
+  if (!extensions.includes(FILE_TYPE))
     throw new Error(`Config type ${FILE_TYPE} isn't supported.`);
 
-  const parsedConfig = await getConfigFromYaml();
+  const paths = extensions.map(ext =>
+    join(FILE_LOCATION, `${FILENAME}.${ext}`),
+  );
 
-  return parsedConfig as ConfigFile;
+  const contents = await readFiles(paths);
+
+  const parser = ["json", "jsonc"].includes(FILE_TYPE)
+    ? jsonc.parse
+    : yamlParser;
+
+  return parseFiles(contents, parser);
 }
