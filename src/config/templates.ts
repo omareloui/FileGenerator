@@ -31,6 +31,18 @@ const templatesConfig: TemplateConfig = {
     defaultDist: join(CWD, "plugins"),
   },
 
+  "nuxt-plugin-inject": {
+    props: KEBAB_NAME,
+    defaultFilename: "{name,c}",
+    defaultDist: join(CWD, "plugins"),
+  },
+
+  "nuxt-plugin-type": {
+    props: KEBAB_NAME,
+    defaultFilename: "{name,c}.d",
+    defaultDist: join(CWD, "plugins"),
+  },
+
   "pinia-store": {
     props: KEBAB_NAME,
     defaultFilename: "use{name,p}",
