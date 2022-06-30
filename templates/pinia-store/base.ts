@@ -1,6 +1,6 @@
 import { defineStore, acceptHMRUpdate } from "pinia";
 
-export const use<%= CaseConvertor.kebabToPascal(name) %>Store = defineStore("<%= %>", {
+export const use<%= CaseConvertor.kebabToPascal(name) %>Store = defineStore("<%= name %>", {
   state: () => ({}),
 
   getters: {},
