@@ -25,6 +25,12 @@ const LICENSE_OPTIONS: TemplateConfig[string] = {
 };
 
 const templatesConfig: TemplateConfig = {
+  "pinia-store": {
+    props: KEBAB_NAME,
+    defaultFilename: "use{name,p}",
+    defaultDist: join(CWD, "store"),
+  },
+
   lit: {
     props: {
       ...KEBAB_NAME,
