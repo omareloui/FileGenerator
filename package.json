@@ -1,6 +1,6 @@
 {
   "name": "@omareloui/gf",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "A boilerplate file generator for any project.",
   "main": "dist/app.js",
   "type": "module",
