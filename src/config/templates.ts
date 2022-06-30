@@ -25,13 +25,19 @@ const LICENSE_OPTIONS: TemplateConfig[string] = {
 };
 
 const templatesConfig: TemplateConfig = {
+  "nuxt-plugin": {
+    props: KEBAB_NAME,
+    defaultFilename: "{name,c}",
+    defaultDist: join(CWD, "plugins"),
+  },
+
   "pinia-store": {
     props: KEBAB_NAME,
     defaultFilename: "use{name,p}",
     defaultDist: join(CWD, "store"),
   },
 
-  lit: {
+  "lit": {
     props: {
       ...KEBAB_NAME,
       styles: { default: true, type: "confirm" },
@@ -50,9 +56,9 @@ const templatesConfig: TemplateConfig = {
     defaultFilename: "{name}.controller",
   },
 
-  vue: {},
+  "vue": {},
 
-  readme: {
+  "readme": {
     props: { title: {} },
     defaultFilename: "README",
     defaultDist: CWD,
