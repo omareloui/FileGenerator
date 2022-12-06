@@ -2,7 +2,7 @@ import { assertEquals } from "assert";
 
 import { CaseConvertor } from "./case_convertor.ts";
 
-import type { PropValue } from "../types/mod.ts";
+import type { PropValue } from "types";
 
 export type Case = "p" | "c" | "l" | "s" | "ss";
 

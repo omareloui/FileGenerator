@@ -1,5 +1,5 @@
 import * as path from "path";
-import type { TemplateConfig, TemplateProps } from "../types/mod.ts";
+import type { TemplateConfig, TemplateProps } from "types";
 
 const CWD = Deno.cwd();
 

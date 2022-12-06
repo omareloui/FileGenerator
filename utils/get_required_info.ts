@@ -9,7 +9,7 @@ import { getConfigFromFile } from "./get_config_from_file.ts";
 
 import { CustomSyntax } from "lib";
 
-import type { PropValue, RetrievedTemplate, Template } from "../types/mod.ts";
+import type { PropValue, RetrievedTemplate, Template } from "types";
 import type { ConfigFile } from "config";
 
 async function askForTemplate(templates: Template[]) {

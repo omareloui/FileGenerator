@@ -1,5 +1,5 @@
 import { Confirm, Input, Number, Secret } from "cliffy/prompt";
-import type { PropValue, Template } from "../types/mod.ts";
+import type { PropValue, Template } from "types";
 
 export async function getPropAnswer<T extends PropValue>(
   template: Template,

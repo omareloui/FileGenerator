@@ -8,7 +8,7 @@ import { getTemplateProps } from "./get_template_props.ts";
 import { getTemplateDefaultFilename } from "./get_template_default_filename.ts";
 import { getTemplateDefaultDest } from "./get_template_default_dest.ts";
 
-import type { Template } from "../types/mod.ts";
+import type { Template } from "types";
 
 export async function getTemplatesSrcs() {
   const templates = [];

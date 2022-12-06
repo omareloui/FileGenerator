@@ -3,6 +3,7 @@
     "utils": "./utils/mod.ts",
     "config": "./config/mod.ts",
     "lib": "./lib/mod.ts",
+    "types": "./types/mod.ts",
 
     "path": "https://deno.land/std@0.167.0/path/mod.ts",
     "assert" : "https://deno.land/std@0.167.0/testing/asserts.ts",

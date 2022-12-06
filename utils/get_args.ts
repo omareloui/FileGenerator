@@ -1,6 +1,6 @@
 import { Command } from "cliffy/command";
 
-import type { Template } from "../types/mod.ts";
+import type { Template } from "types";
 
 export async function getArgs(templates: Template[]) {
   const { args, options } = await new Command()

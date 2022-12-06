@@ -4,7 +4,7 @@ import * as dejs from "dejs";
 import { FSHelper } from "lib";
 import config from "config";
 
-import type { RetrievedTemplate } from "../types/mod.ts";
+import type { RetrievedTemplate } from "types";
 
 export async function generateTemplate(template: RetrievedTemplate) {
   const content = await dejs.renderFileToString(
