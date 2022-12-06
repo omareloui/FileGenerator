@@ -1,5 +1,5 @@
 {
-  "$schema": "https://deno.land/x/denon@2.4.9/schema.json",
+  "$schema": "https:deno.land/x/denon@2.4.9/schema.json",
   "allow": [],
   "unstable": true,
   "watch": false,
@@ -39,14 +39,14 @@
     },
 
     "reload-deps": {
-      "cmd": "deno cache --reload --lock-write .\deps.ts",
+      "cmd": "deno cache --reload --lock-write ./deps.ts",
       "watch": false,
       "unstable": false,
       "allow": []
     },
 
     "reload-lock": {
-      "cmd": "deno cache --lock-write .\deps.ts",
+      "cmd": "deno cache --lock-write ./deps.ts",
       "watch": false,
       "allow": []
     }

@@ -3,25 +3,16 @@
 ## How to setup
 
 ```bash
-# To start in dev mode (builds and runs the script)
-pnpm dev
+# To start run it
+deno task run [template-name]
 
-# To build script
-pnpm build
-
-# To start from the built file
-pnpm start
-```
-
-## Install globally
-
-```bash
-# TODO:
+# To install it globally and use it wherever it'll be available as `gf` (generate file).
+deno task install
 ```
 
 ## How it works
 
-To add a template file create a file in the configured templates directory (you can change it from the `src/config/index.ts` file it defaults to `templates`). subdirectories will be separated with a dash (-) for the template name.
+To add a template file create a file in the configured templates directory (you can change it from the `config/mod.ts` file it defaults to `templates`). Subdirectories will be separated with a dash (-) for the template name.
 
 Any file with the name "base" it'll take its parent directory's name. You can change "base" in the config file.
 
@@ -35,7 +26,8 @@ templates
     │   ├── MIT
     │   └── WTFPL
     ├─ lit
-    │   └── base.ts
+    │   ├── base.ts
+    │   └── demo.ts
     └─ vue
         └── base.vue
 ```
@@ -45,6 +37,7 @@ The templates names will resolve to
 - license-mit
 - license-wtfpl
 - lit
+- lit-demo
 - vue
 
 After creating a file inside the templates directory that's all you'll need to define a template. But you can add more configs to the `src/config/templates.ts` file, more on that [here](#more-configuration).
@@ -53,8 +46,10 @@ Now you can run `gf -t <template-name>` from anywhere and it'll create that file
 
 ### Cli options
 
-- **Template:** to select a template you can pass its name to  the `--template` or `-t` flag.
-- **Destination:** you can change the destination of the generated file by adding `--dest` or `-d` followed by the target location.
+- `[template]` to select a template.
+- `-h` or `--help` to view help.
+- `-V` or `--version` to get the version
+- `-d` or `--dest` to change the destination of the created file.
 
 ---
 
@@ -62,7 +57,7 @@ Now you can run `gf -t <template-name>` from anywhere and it'll create that file
 
 By default you don't need to add any configuration. **But** most of the time generating a file isn't enough; you'd need to change the content or the filename itself.
 
-You can do this easily by adding configuration for the template inside `src/config/templates.ts`. You can add `props` to pass down to the template file, `defaultFilename` to add a dynamic or static default filename, and/or `defaultDist` to define the relative dist the file should be created in.
+You can do this easily by adding configuration for the template inside `config/templates.ts`. You can add `props` to pass down to the template file, `defaultFilename` to add a dynamic or static default filename, and/or `defaultDest` to define the relative dest the file should be created in.
 
 ### **Props**
 
@@ -90,7 +85,7 @@ Assuming you have `template/template-name.ext` template file created, and define
 <%= date %>
 ```
 
-`src/config/template.ts`
+`config/template.ts`
 
 ```ts
 const templatesConfig: TemplateConfig = {
@@ -99,7 +94,7 @@ const templatesConfig: TemplateConfig = {
       name: {
         hint: "in kebab-case",
         validator: (v: string) => !!v.match(/^[a-z][a-z1-9-]+$/),
-      }
+      },
       email: {
         validator: (v) => validateEmail(v)
       },
@@ -114,7 +109,7 @@ const templatesConfig: TemplateConfig = {
 After selecting the template
 
 ```bash
-gf -t template-name
+gf template-name
 ```
 
 You will get prompt to pass the enter the required values.
@@ -145,7 +140,7 @@ By default there are utility functions that'll be passed to the templates genera
 
 ##### **Create your own utils**
 
-To pass down a utility all you need to do is to export it from `src/config/templates-utils.ts`.
+To pass down a utility all you need to do is to export it from `config/templates-utils.ts`.
 
 ##### **How to use them**
 
@@ -219,11 +214,11 @@ filename -> template-name.ext
 
 ---
 
-### **Default Distention**
+### **Default Destination**
 
-Instead of having to provide the distention every time you create a file you can provide a default distention to create the file in.
+Instead of having to provide the destination every time you create a file you can provide a default destination to create the file in.
 
-All you have to do is to add `defaultDist` to the template options.
+All you have to do is to add `defaultDest` to the template options.
 
 ```ts
 const templatesConfig: TemplateConfig = {
@@ -237,7 +232,7 @@ const templatesConfig: TemplateConfig = {
     defaultFilename: "{name,p}",
 
     // -- here -- //
-    defaultDist: path.join(process.cwd(), "src", "models"),
+    defaultDest: path.join(process.cwd(), "src", "models"),
   },
 }
 ```
@@ -248,7 +243,7 @@ After defining this every time you create a `template-name` template it'll be ge
 
 ### Config File
 
-You can override the default dist for files for a project's scope by creating `file-generator.yaml` to the project's root.
+You can override the default dest for files for a project's scope by creating `file-generator.yaml` to the project's root.
 
 #### **Schema**
 
@@ -257,23 +252,23 @@ The config file schema is provided at `schema/config.json`.
 ```yaml
 # yaml-language-server: $schema=./schema/config.json
 
-default-dist: "./src"
+default-dest: "./src"
 
 templates:
   template-name:
-    dist: "./src/model"
+    dest: "./src/model"
 ```
 
 ##### **Options**
 
-- `default-dist` where the file will be generated if it's dist wasn't defined.
+- `default-dest` where the file will be generated if it's dest wasn't defined.
 - `templates` where each template option will be overridden.
 - `template-name` the template you want to override.
-- `dist` the default dist for that specific template.
+- `dest` the default dest for that specific template.
 
 #### **Change File Name, Location, or Extension**
 
-From `src/config/index.ts` you can change settings from `configFile` to change the file location and name.
+From `config/mod.ts` you can change settings from `configFile` to change the file location and name.
 
 - To change the default file location change `FILE_LOCATION`.
 - To change the file name to search and retrieve settings from change `FILENAME`.

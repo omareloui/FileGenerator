@@ -8,7 +8,7 @@
     }
   },
   "tasks": {
-    "start": "deno run --allow-read --allow-write --unstable mod.ts",
+    "run": "deno run --allow-read --allow-write --unstable mod.ts",
     "test": "deno test",
     "build": "deno bundle --allow-read --allow-write --unstable --output=bin/app mod.ts",
     "install": "deno install --allow-read --allow-write --unstable --force --name gf mod.ts"
