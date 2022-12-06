@@ -1,0 +1,16 @@
+{
+  "importMap": "./import_map.json",
+  "test": {
+    "files": {
+      "include": [
+        "./lib/custom_syntax.ts"
+      ]
+    }
+  },
+  "tasks": {
+    "start": "deno run --allow-read --allow-write --unstable mod.ts",
+    "test": "deno test",
+    "build": "deno bundle --allow-read --allow-write --unstable --output=bin/app mod.ts",
+    "install": "deno install --allow-read --allow-write --unstable --force --name gf mod.ts"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "imports": {
+    "utils": "./utils/mod.ts",
+    "config": "./config/mod.ts",
+    "lib": "./lib/mod.ts",
+
+    "path": "https://deno.land/std@0.167.0/path/mod.ts",
+    "assert" : "https://deno.land/std@0.167.0/testing/asserts.ts",
+
+    "dejs" : "https://deno.land/x/dejs@0.10.3/mod.ts",
+    "jsonc" : "https://deno.land/x/jsonc@1/main.ts",
+    "yaml" : "npm:yaml",
+
+    "cliffy/colors" : "https://deno.land/x/cliffy@v0.25.3/ansi/colors.ts",
+    "cliffy/command" : "https://deno.land/x/cliffy@v0.25.2/command/mod.ts",
+    "cliffy/prompt" : "https://deno.land/x/cliffy@v0.25.2/prompt/mod.ts"
+  }
+}

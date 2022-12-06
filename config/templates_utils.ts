@@ -1,0 +1,1 @@
+export { CaseConvertor } from "lib";

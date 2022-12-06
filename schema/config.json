@@ -4,8 +4,8 @@
   "description": "Generate file configurations.",
   "type": "object",
   "properties": {
-    "default-dist": {
-      "description": "Override the root dist to create files in.",
+    "default-dest": {
+      "description": "Override the root dest to create files in.",
       "type": "string"
     },
     "templates": {
@@ -16,7 +16,7 @@
           "description": "Template configurations",
           "type": "object",
           "properties": {
-            "dist": {
+            "dest": {
               "type": "string"
             }
           }

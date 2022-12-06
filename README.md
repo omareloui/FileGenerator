@@ -13,6 +13,12 @@ pnpm build
 pnpm start
 ```
 
+## Install globally
+
+```bash
+# TODO:
+```
+
 ## How it works
 
 To add a template file create a file in the configured templates directory (you can change it from the `src/config/index.ts` file it defaults to `templates`). subdirectories will be separated with a dash (-) for the template name.
@@ -43,7 +49,7 @@ The templates names will resolve to
 
 After creating a file inside the templates directory that's all you'll need to define a template. But you can add more configs to the `src/config/templates.ts` file, more on that [here](#more-configuration).
 
-Now you can run `fg -t <template-name>` from anywhere and it'll create that file in the CWD.
+Now you can run `gf -t <template-name>` from anywhere and it'll create that file in the CWD.
 
 ### Cli options
 
